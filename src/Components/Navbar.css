@@ -1,0 +1,41 @@
+.navbar {
+  padding: 0.4rem 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #007bff !important;
+}
+
+.form-check-input {
+  cursor: pointer;
+  width: 3rem;
+  height: 1.5rem;
+  margin-left: auto;
+}
+
+.form-check-label {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+/* Dark mode specific styles */
+.navbar-dark {
+  background-color: #1a1a1a !important;
+}
+
+.navbar-dark .navbar-brand,
+.navbar-dark .nav-link {
+  color: #ffffff;
+}

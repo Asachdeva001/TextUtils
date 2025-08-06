@@ -1,57 +1,55 @@
-import React,{useState} from 'react';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route
-} from "react-router-dom";
-
-import Navbar from './Components/Navbar';
-import TextForm from './Components/TextForm';
-import Alert from './Components/Alert';
-import About from './Components/About';
-
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+import Navbar from "./Components/Navbar";
+import TextForm from "./Components/TextForm";
+import About from "./Components/About";
+import Alert from "./Components/Alert";
 
 function App() {
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState("light");
   const [alert, setAlert] = useState(null);
-  const showAlert = (typeOf, message) => {
+
+  const toggleMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.body.style.backgroundColor = "#212529";
+      document.body.style.color = "#fff";
+      showAlert("Dark mode enabled", "success");
+    } else {
+      setMode("light");
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.style.backgroundColor = "#f8f9fa";
+      document.body.style.color = "#212529";
+      showAlert("Light mode enabled", "success");
+    }
+  };
+
+  const showAlert = (message, type) => {
     setAlert({
-      type: typeOf,
-      msg: message
+      msg: message,
+      type: type,
     });
     setTimeout(() => {
       setAlert(null);
     }, 1500);
-  }
-  const toggleMode = () => {
-    if (mode === 'light') {
-      setMode('dark');
-      document.body.style.backgroundColor = 'rgb(33, 37, 50)';
-      document.title = 'TextUtils-Dark';
-      showAlert('success', 'Dark Mode Enabled');
-    } else {
-      setMode('light');
-      document.body.style.backgroundColor = 'white';
-      document.title = 'TextUtils-Light';
-      showAlert('success', 'Ligth Mode Enabled');
-    }
-  }
+  };
+
   return (
-    <>
-      <Router>
-        <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
-        <Alert alert={alert} />
-        <div className="container">
-        <Routes>
-          <Route exact path="/about" element={<About mode={mode}/>}/>
-          <Route exact path="/" element={<TextForm Heading="Enter the text for analysis" mode={mode} />}/>
-        </Routes>
-        </div>
-      </Router>
-    </>
-  )
+    <Router>
+      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+      <Alert alert={alert} />
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={<TextForm mode={mode} showAlert={showAlert} />}
+        />
+        <Route exact path="/about" element={<About mode={mode} />} />
+      </Routes>
+    </Router>
+  );
 }
-
-
 
 export default App;
